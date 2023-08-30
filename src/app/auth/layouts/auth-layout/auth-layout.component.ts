@@ -3,10 +3,12 @@ import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 
 @Component({
-  selector   : 'app-root',
+  selector   : 'auth-layout',
   standalone : true,
   imports    : [CommonModule, RouterOutlet],
-  templateUrl: './app.component.html',
+  templateUrl: './auth-layout.component.html',
+  styles     : [
+  ],
 })
-export class AppComponent {
+export default class AuthLayoutComponent {
 };
