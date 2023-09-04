@@ -24,10 +24,10 @@
           class="text-white hover:bg-[#56BC63] block w-[12rem]
                   focus:outline-none focus:ring-4 focus:ring-gray-300
                   font-medium rounded-full text-sm py-2.5 mr-2 mb-2 select-none
-                  dark:bg-green-800 dark:hover:bg-gray-700 cursor-pointer
+                  dark:hover:bg-[#56BC63] cursor-pointer
                   dark:focus:ring-gray-700 dark:border-gray-700"
           [routerLink]="route.URL"
-          routerLinkActive="dark:bg-red-500"
+          routerLinkActive="dark:bg-red-500 bg-red-500"
           [routerLinkActiveOptions]="{ exact:true }"
         >
           <span class="text-lg">{{ route.label|titlecase }}</span>
@@ -40,7 +40,7 @@
           class="text-white hover:bg-[#56BC63] block w-[12rem]
                   focus:outline-none focus:ring-4 focus:ring-gray-300
                   font-medium rounded-full text-sm py-2.5 mr-2 mb-2 select-none
-                  dark:bg-green-800 dark:hover:bg-gray-700 cursor-pointer
+                  dark:hover:bg-[#56BC63] cursor-pointer
                   dark:focus:ring-gray-700 dark:border-gray-700"
           routerLink="/auth/login"
         >
