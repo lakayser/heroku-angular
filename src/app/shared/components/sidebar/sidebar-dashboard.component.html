@@ -1,0 +1,52 @@
+<aside
+  id="sidebar-heroes"
+  class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform
+        -translate-x-full lg:translate-x-0"
+>
+  <div
+    class="h-full px-3 py-4 overflow-y-auto
+          bg-[#063C65] dark:bg-gray-800 text-center"
+  >
+    <div class="mb-12">
+      <img
+        class="w-[100%] h-8 text-center mt-4 mr-2"
+        src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg"
+        alt="logo"
+      >
+    </div>
+
+    <ul class="space-y-2 font-medium">
+      <li
+        *ngFor="let route of sidebarRoutes"
+        class="flex justify-center py-2"
+      >
+        <a
+          class="text-white hover:bg-[#56BC63] block w-[12rem]
+                  focus:outline-none focus:ring-4 focus:ring-gray-300
+                  font-medium rounded-full text-sm py-2.5 mr-2 mb-2 select-none
+                  dark:bg-green-800 dark:hover:bg-gray-700 cursor-pointer
+                  dark:focus:ring-gray-700 dark:border-gray-700"
+          [routerLink]="route.URL"
+          routerLinkActive="dark:bg-red-500"
+          [routerLinkActiveOptions]="{ exact:true }"
+        >
+          <span class="text-lg">{{ route.label|titlecase }}</span>
+        </a>
+      </li>
+      <li
+        class="flex justify-center pt-16"
+      >
+        <a
+          class="text-white hover:bg-[#56BC63] block w-[12rem]
+                  focus:outline-none focus:ring-4 focus:ring-gray-300
+                  font-medium rounded-full text-sm py-2.5 mr-2 mb-2 select-none
+                  dark:bg-green-800 dark:hover:bg-gray-700 cursor-pointer
+                  dark:focus:ring-gray-700 dark:border-gray-700"
+          routerLink="/auth/login"
+        >
+          <span class="text-lg">Cerrar Sesión</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</aside>

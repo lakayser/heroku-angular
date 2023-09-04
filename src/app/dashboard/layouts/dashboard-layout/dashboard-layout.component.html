@@ -1,1 +1,19 @@
-<p>dashboard-layout works!</p>
+<div>
+
+  <shared-toolbar
+    [toolbarRoutes]="toolbarRoutes"
+  >
+  </shared-toolbar>
+
+  <div>
+    <shared-sidebar-dashboard
+      [sidebarRoutes]="sidebarRoutes"
+    >
+    </shared-sidebar-dashboard>
+  </div>
+
+  <div class="sm:block mt-8 lg:ml-[17rem] mr-[1rem]">
+    <router-outlet></router-outlet>
+  </div>
+
+</div>

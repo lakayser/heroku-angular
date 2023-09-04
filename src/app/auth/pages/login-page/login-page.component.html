@@ -38,6 +38,14 @@
 						>
 					</div>
 
+					<span
+						*ngIf="isValidField('email')"
+						class="text-red-500 text-sm"
+						customErrorsForm
+						[errors]="myForm.get('email')?.errors"
+					>
+					</span>
+
 					<div>
 						<label
 							class="block mb-2 text-sm font-medium dark:text-white"
@@ -58,6 +66,14 @@
 							placeholder="••••••••" required=""
 						>
 					</div>
+
+					<span
+						*ngIf="isValidField('password')"
+						class="text-red-500 text-sm"
+						customErrorsForm
+						[errors]="myForm.get('password')?.errors"
+					>
+					</span>
 
 					<div class="text-center">
 						<!-- <button
@@ -84,12 +100,3 @@
 	</div>
 
 </section>
-
-<div class="text-white">
-	<pre>
-		email: {{myForm.get('email')?.errors|json}}
-	</pre>
-	<pre>
-		password: {{myForm.get('password')?.errors|json}}
-	</pre>
-</div>

@@ -1,0 +1,60 @@
+<div class="bg-blue-500 py-2">
+
+  <div class="flex items-center justify-between">
+    <div>
+      <button
+        (click)="toggleMenu()"
+        type="button"
+        class="px-2 text-gray-500 dark:text-black hover:text-white lg:hidden">
+        <i class="fa-solid fa-bars text-2xl cursor-pointer"></i>
+      </button>
+    </div>
+
+    <i
+      class="fa-solid fa-circle-half-stroke mr-6
+            text-2xl cursor-pointer">
+    </i>
+  </div>
+
+  <div
+    [ngClass]="{'-translate-y-full': !isMenuOpen, 'translate-y-0': isMenuOpen}"
+    class="fixed inset-0 flex flex-col space-y-4 p-4 bg-gray-900
+          transform overflow-y-auto transition-transform
+          duration-200 ease-in-out lg:hidden h-[12rem]">
+    <div class="absolute top-0 left-0 ml-2 mt-2">
+      <button
+        (click)="toggleMenu()"
+        type="button"
+        class="p-2 text-gray-500 hover:text-black">
+        <i class="fa-solid fa-bars text-2xl"></i>
+      </button>
+    </div>
+
+    <nav>
+      <ul class="flex flex-col space-y-2 text-center">
+        <li
+          *ngFor="let route of toolbarRoutes"
+          class="mt-6"
+          >
+          <a
+            class="text-gray-500 hover:text-black"
+            [routerLink]="route.URL"
+            (click)="toggleMenu()"
+            >
+            {{ route.label | titlecase }}
+          </a>
+        </li>
+        <li
+          class="mt-6"
+          >
+          <a
+            class="text-gray-500 hover:text-black"
+            routerLink="/auth/login"
+          >
+            Cerrar Sesión
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>
