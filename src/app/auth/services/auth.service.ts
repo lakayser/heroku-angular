@@ -1,10 +1,9 @@
 import { Injectable, computed, inject, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, catchError, map, tap, throwError } from 'rxjs';
-
-import { AuthStatus, LoginResponse, User } from '../interfaces';
+import { Observable, catchError, map, of, tap, throwError } from 'rxjs';
 
 import { environments } from '../../enviroments/environments';
+import { AuthStatus, LoginResponse, User } from '../interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -20,20 +19,20 @@ export class AuthService {
   public currentUser = computed<User|null>(() => this._currentUser());
   public authStatus  = computed<AuthStatus>(() => this._authStatus());
 
+  private setAuthentication(user: User, token: string): boolean {
+    this._currentUser.set(user);
+    this._authStatus.set(AuthStatus.authenticated);
+    localStorage.setItem('token', token);
+    return true;
+  };
+
   login(email: string, password: string): Observable<boolean> {
-    const url  = `${this.baseURL}/api/auth`;
+    const URL  = `${this.baseURL}/api/auth`;
     const body = {email, password};
 
-    return this.http.post<LoginResponse>(url, body)
+    return this.http.post<LoginResponse>(URL, body)
       .pipe(
-        tap(({user, token}) => {
-          this._currentUser.set(user);
-          this._authStatus.set(AuthStatus.authenticated);
-          localStorage.setItem('token', token);
-
-          console.log({user, token});
-        }),
-        map(() => true),
+        map(({user, token}) => this.setAuthentication(user, token)),
         catchError(err => throwError(() => err.error.msg)),
       );
   };
