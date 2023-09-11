@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, computed, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
@@ -39,8 +39,10 @@ export default class LoginPageComponent implements OnInit {
   private validatorsService: ValidatorsService = inject(ValidatorsService);
   private authService      : AuthService = inject(AuthService);
 
+  public idOrg = computed(() => this.authService.currentUser()?.organization);
+
   public myForm: FormGroup = this.fb.group({
-    email   : ['', [Validators.required, Validators.pattern(this.validatorsService.emailPattern)]],
+    email   : ['DDTINP1714arch@gmail.com', [Validators.required, Validators.pattern(this.validatorsService.emailPattern)]],
     password: ['', [Validators.required, Validators.minLength(6)]],
   });
 
@@ -59,7 +61,7 @@ export default class LoginPageComponent implements OnInit {
     const {email, password} = this.myForm.value;
     this.authService.login(email, password)
       .subscribe({
-        next : () => this.router.navigateByUrl('dashboard/index'),
+        next : () => this.router.navigateByUrl(`dashboard/index/${this.idOrg()}`),
         error: (message) => {
           Swal.fire({
             title     : 'Error',
