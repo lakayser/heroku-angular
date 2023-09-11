@@ -4,19 +4,18 @@ import { CustomButtonDirective } from 'src/app/shared/directives/custom-button.d
 import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({
-  selector   : 'dashboard-hours',
-  standalone : true,
-  imports    : [
+  selector: 'app-courts',
+  standalone: true,
+  imports: [
     CommonModule,
     CustomButtonDirective,
     ReactiveFormsModule
   ],
-  templateUrl: './hours.component.html',
-  styles     : [
-  ],
+  templateUrl: './courts.component.html',
+  styleUrls: [
+
+  ]
 })
+export default class CourtsComponent {
 
-
-
-export default class HoursComponent {
-};
+}
