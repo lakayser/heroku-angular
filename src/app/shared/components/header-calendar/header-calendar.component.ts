@@ -1,9 +1,9 @@
-import { Component, Input, OnInit, computed, inject, signal } from '@angular/core';
+import { Component, OnInit, computed, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { DateTime, Settings } from 'luxon';
 
 import { CourtsService } from '../../services/courts-service.service';
 import { Courts } from '../../interfaces/courts.interface';
-import { DateTime, Settings } from 'luxon';
 
 @Component({
   selector   : 'shared-header-calendar',
@@ -15,20 +15,20 @@ import { DateTime, Settings } from 'luxon';
 })
 export class HeaderCalendarComponent implements OnInit {
 
-  @Input() idOrg!: string;
-
   private courtsService: CourtsService = inject(CourtsService);
+  private idOrg                        = computed(() => localStorage.getItem('idOrg'));
 
-  public courts     = signal<Courts[]>([]);
-  public indexCourt = signal<number>(0);
-  public courtsName = computed(() => {
-    return this.courts()[this.indexCourt()]?.name;
-  });
+  public courts         = signal<Courts[]>([]);
+  public courtsName     = computed<Courts[]>(() => this.courts());
+  public indexCourt     = signal<number>(0);
+  public firstCourtName = computed<string>(() => this.courtsName()[this.indexCourt()]?.name);
+  public showListCourts = signal<boolean>(false);
 
-  public weekNumber  = signal<number|undefined>(undefined);
-  public currentDate = signal<DateTime|undefined>(undefined);
-  public monthName   = signal<string|undefined>(undefined);
-  public year        = signal<number|undefined>(undefined);
+  public weekNumber       = signal<number|undefined>(undefined);
+  public currentDate      = signal<DateTime|undefined>(undefined);
+  public monthName        = signal<string|undefined>(undefined);
+  public year             = signal<number|undefined>(undefined);
+  public monthNameAndYear = computed(() => `${this.monthName()} ${this.year()}`);
 
   constructor() {
     Settings.defaultZone   = 'America/Santiago';
@@ -40,15 +40,22 @@ export class HeaderCalendarComponent implements OnInit {
 
     this.getCurrentDate();
     this.getWeekNumber();
-    this.getMonthName();
+    this.getMonthName(this.weekNumber(), this.year());
     this.getCurrentYear();
   };
 
   getCourts(): void {
-    this.courtsService.getCourts(this.idOrg)
+    this.courtsService.getCourts(this.idOrg())
       .subscribe(courts => {
         this.courts.set(courts);
       });
+  };
+  setShowListCourts(): void {
+    this.showListCourts.update(show => show = !show);
+  };
+  getIndexCourtList(indexCourt: number): void {
+    this.indexCourt.update(index => index = indexCourt);
+    this.showListCourts.update(show => show = !show);
   };
 
   getCurrentDate(): void {
@@ -58,12 +65,30 @@ export class HeaderCalendarComponent implements OnInit {
   getWeekNumber(): void {
     this.weekNumber.set(this.currentDate()?.weekNumber);
   };
-  getMonthName(): void {
-    const startOfWeek = this.currentDate()?.startOf('week');
-    this.monthName.set(startOfWeek?.toLocaleString({month:'long'}));
+  getMonthName(weekNumber: number|undefined, year: number|undefined): void {
+    if(this.weekNumber()! >= 1 && this.weekNumber()! <= 52) {
+      const date = DateTime.fromObject({weekNumber: this.weekNumber(), weekday: 1})
+      this.monthName.set(date.toFormat('LLLL'));
+    };
   };
   getCurrentYear(): void {
     this.year.set(this.currentDate()?.year);
+  };
+  nextWeek(): void {
+    if(this.weekNumber()! >= 52) {
+      this.weekNumber.set(1);
+      this.year.update(year => year! + 1);
+    };
+    this.weekNumber.update(number => number! + 1);
+    this.getMonthName(this.weekNumber(), this.year());
+  };
+  prevWeek(): void {
+    if(this.weekNumber()! <= 1) {
+      this.weekNumber.set(52);
+      this.year.update(year => year! - 1);
+    };
+    this.weekNumber.update(number => number! - 1);
+    this.getMonthName(this.weekNumber(), this.year());
   };
 
 };
