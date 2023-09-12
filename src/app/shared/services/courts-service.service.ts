@@ -12,7 +12,7 @@ export class CourtsService {
   private readonly baseURL: string = environments.baseURL;
   private http            : HttpClient = inject(HttpClient);
 
-  getCourts(idOrg: string): Observable<Courts[]> {
+  getCourts(idOrg: string|null): Observable<Courts[]> {
     const URL     = `${this.baseURL}/api/courts/listActive/${idOrg}`;
     const token   = localStorage.getItem('token');
     const headers = new HttpHeaders({
