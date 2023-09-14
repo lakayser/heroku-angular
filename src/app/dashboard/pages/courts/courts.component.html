@@ -1,5 +1,4 @@
 <div class="text-center text-white">
-    {{organization()|json}}
 </div>
 <section class="bg-gray-50 dark:bg-gray-900 text-white ">
     <div class="flex justify-center py-[2rem] ">
@@ -21,26 +20,15 @@
                     <thead>
                         <tr>
                             <th class="border border-slate-600 px-5">Nombre de canchas</th>
-                            <th class="border border-slate-600 px-5">Rango Horario</th>
-                            <th class="border border-slate-600 px-5">Opciones</th>
+                            
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody *ngFor="let name of courtsName()">
                         <tr>
-                            <td class="border border-slate-600">cancha</td>
-                            <td class="border border-slate-600">11:11-11:11</td>
-                            <td class="border border-slate-600">botones</td>
+                            <td class="border border-slate-600">{{name.name}}</td>
+                     
                         </tr>
-                        <tr>
-                            <td class="border border-slate-600">cancha</td>
-                            <td class="border border-slate-600">11:11-11:11</td>
-                            <td class="border border-slate-600">botones</td>
-                        </tr>
-                        <tr>
-                            <td class="border border-slate-600">cancha</td>
-                            <td class="border border-slate-600">11:11-11:11</td>
-                            <td class="border border-slate-600">botones</td>
-                        </tr>
+                        
                     </tbody>
                 </table>
             </div>
@@ -58,24 +46,14 @@
                         <label for="input" class="form-label text-[#063C65] dark:text-white text-2xl">Ingrese nombre de nueva
                             cancha:</label>
 
-                        <input type="text" class="form-control" name="name" required id="name" minlength="4"
+                        <input type="text" class="form-control bg-gray-50 border border-gray-300 text-gray-900
+                        sm:text-lg rounded-lg focus:ring-primary-600 focus:border-primary-600
+                        p-2.5 dark:bg-gray-700 dark:border-gray-600
+                        dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500
+                        dark:focus:border-blue-500" name="name" required id="name" minlength="4"
                             formControlName="name" />
 
-                    </div>
-
-                    <div class="col mt-4 form-group">
-                        <label for="input" class="form-label text-[#063c65] dark:text-white text-2xl">Seleccione la
-                            duración de la reserva:</label>
-
-                        <select class="form-select text-gray-800 bg-gray-200" name="rangoHorario" id="rangoHorario" name="rangoHorario"
-                            formControlName="rangoHorario" required>
-                            <option value="1">1 Hora</option>
-                            <option value="2">1:30 Horas</option>
-                            <option value="3">2 Horas</option>
-                        </select>
-
-                    </div>
-
+                        </div>
                     <div class="text-center mt-4 text-black">
                         <button [width]="'px-[5rem]'" [widthResponsive]="'sm:px-[9rem]'" customButton>
                             Agregar Cancha

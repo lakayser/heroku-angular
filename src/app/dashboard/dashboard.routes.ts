@@ -8,7 +8,7 @@ export const routesDashboard: Routes = [
     children     : [
       {path: 'index/:idOrg',  loadComponent: () => import('./pages/index-page/index-page.component')},
       {path: 'hours',         loadComponent: () => import('./pages/hours/hours.component')},
-      {path: 'courts/:idOrg',        loadComponent: () => import('./pages/courts/courts.component')}
+      {path: 'courts',        loadComponent: () => import('./pages/courts/courts.component')}
     ],
   },
 

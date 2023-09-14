@@ -4,8 +4,6 @@ import { CustomButtonDirective } from 'src/app/shared/directives/custom-button.d
 import { ReactiveFormsModule } from '@angular/forms';
 import { CourtsService } from 'src/app/shared/services/courts-service.service';
 import { Courts } from 'src/app/shared/interfaces/courts.interface';
-import { User } from 'src/app/auth/interfaces';
-import { AuthService } from '../../../auth/services/auth.service';
 
 @Component({
   selector: 'app-courts',
@@ -26,18 +24,27 @@ import { AuthService } from '../../../auth/services/auth.service';
 export default class CourtsComponent implements OnInit {
 
   private courtservice: CourtsService = inject(CourtsService);
-  private auth: AuthService = inject(AuthService);
 
   public courts = signal<Courts[]>([])
+  public courtsName = computed<Courts[]>(()=> this.courts())
+
   public organization = computed(()=>{
-    return this.auth.currentUser();
+    return localStorage.getItem("idOrg");
   })
-  
+
 
   ngOnInit(): void {
-
+    this.getcourts();
   }
   
+  getcourts(): void{
+    this.courtservice.getCourts(this.organization())
+      .subscribe(courts=>{
+        this.courts.set(courts)
+        console.log(this.courts());
+      })
+  }
+
   getidOrg(): void{
 
   }

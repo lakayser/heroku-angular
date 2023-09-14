@@ -26,7 +26,8 @@ export default class DashboardLayoutComponent {
 
   public sidebarRoutes: SidebarRoutes[] = [
     {label: 'Inicio', URL: '/dashboard/index/:idOrg'},
-    {label: 'Canchas', URL: '/dashboard/courts/:idOrg'}
+    {label: 'Canchas', URL: '/dashboard/courts'},
+    {label: 'Horas', URL: '/dashboard/hours'}
   ];
 
   
