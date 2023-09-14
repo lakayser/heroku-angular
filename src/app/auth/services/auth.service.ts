@@ -13,10 +13,10 @@ export class AuthService {
   private readonly baseURL: string = environments.baseURL;
   private http            : HttpClient = inject(HttpClient);
 
-  private _currentUser = signal<User|null>(null);
+  private _currentUser = signal<User|undefined>(undefined);
   private _authStatus  = signal<AuthStatus>(AuthStatus.checking);
 
-  public currentUser = computed<User|null>(() => this._currentUser());
+  public currentUser = computed<User|undefined>(() => this._currentUser());
   public authStatus  = computed<AuthStatus>(() => this._authStatus());
 
   private setAuthentication(user: User, token: string): boolean {

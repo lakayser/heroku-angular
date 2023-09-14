@@ -1,0 +1,57 @@
+<section class="grid grid-cols-7 mt-3 justify-center gap-[1rem]">
+  <div>
+    <div *ngFor="let hour of hours()">
+      <div *ngIf="hour.day === 1">
+        {{hour.hour}}
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <div *ngFor="let hour of hours()">
+      <div *ngIf="hour.day === 2">
+        {{hour.hour}}
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <div *ngFor="let hour of hours()">
+      <div *ngIf="hour.day === 3">
+        {{hour.hour}}
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <div *ngFor="let hour of hours()">
+      <div *ngIf="hour.day === 4">
+        {{hour.hour}}
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <div *ngFor="let hour of hours()">
+      <div *ngIf="hour.day === 5">
+        {{hour.hour}}
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <div *ngFor="let hour of hours()">
+      <div *ngIf="hour.day === 6">
+        {{hour.hour}}
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <div *ngFor="let hour of hours()">
+      <div *ngIf="hour.day === 7">
+        {{hour.hour}}
+      </div>
+    </div>
+  </div>
+</section>

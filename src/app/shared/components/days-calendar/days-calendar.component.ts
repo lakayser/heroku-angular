@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, Input, OnInit, WritableSignal, computed, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DateTime } from 'luxon';
 
@@ -10,27 +10,35 @@ import { DateTime } from 'luxon';
   styles     : [
   ],
 })
-export class DaysCalendarComponent {
+export class DaysCalendarComponent implements OnInit {
 
-  public days = signal<string[]>([
-    'lunes',
-    'martes',
-    'miércoles',
-    'jueves',
-    'viernes',
-    'sábado',
-    'domingo',
-  ]);
-  public dayWithDate  = signal(this.days().map((day, index) => {
+  @Input()
+  public weekNumber!: WritableSignal<number>;
+
+  @Input()
+  public year!: WritableSignal<number>;
+
+  public currentDate = signal<DateTime|undefined>(undefined);
+  public daysWeek = computed(() => {
+    const dateStartWeek = DateTime.now().set({weekYear: this.year(), weekNumber: this.weekNumber(), weekday: 1});
+    const weekDays: {name: string, date: string}[] = [];
+
+    for(let index = 0; index < 7; index++) {
+      weekDays.push({
+        name: dateStartWeek.plus({days: index}).toFormat('EEEE'),
+        date: dateStartWeek.plus({days: index}).toFormat('dd'),
+      });
+    };
+    return weekDays;
+  });
+
+  ngOnInit(): void {
+    this.getCurrentDate();
+  };
+
+  getCurrentDate(): void {
     const currentDate = DateTime.now();
-    const dayOfWeek   = (index + 1) % 7;
-    const dateForDay  = currentDate.set({weekday: dayOfWeek});
-    const weekNumber  = dateForDay.weekNumber;
-    return {
-      day,
-      date: dateForDay.toLocaleString(),
-      weekNumber,
-    }
-  }));
+    this.currentDate.set(currentDate);
+  };
 
 };

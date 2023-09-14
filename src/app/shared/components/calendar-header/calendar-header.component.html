@@ -1,31 +1,31 @@
-<header class="flex gap-4 justify-between">
+<header class="flex ga-4 justify-between">
 
   <section>
-    <div class="text-[#307138] text-xl">
-      {{monthNameAndYear()|titlecase}}
-    </div>
+    <span class="text-[#307138] text-xl">
+      {{monthNameAndYear() | titlecase}}
+    </span>
   </section>
 
-  <section class="flex flex-col">
+  <section>
     <div
       class="text-lg text-center text-white bg-[#307138] cursor-pointer w-[14rem]"
-      (click)="setShowListCourts()"
+      (click)="showListCourts()"
     >
       <span>
-        {{firstCourtName()|titlecase}}
+        {{firstCourtName() | titlecase}}
       </span>
     </div>
 
     <div
-      class="text-center mt-8 bg-[#307138] text-lg absolute w-[14rem]"
-      *ngIf="showListCourts()"
+      class="text-center mt-1 bg-[#307138] text-lg absolute w-[14rem]"
+      *ngIf="listCourts()"
     >
       <div
         class="cursor-pointer py-1 my-1 hover:bg-green-700 text-white"
         *ngFor="let nameCourt of courtsName(); let index = index"
-        (click)="getIndexCourtList(index)"
+        (click)="getIdCourt(nameCourt._id, index)"
       >
-        <span (click)="getIdCourt(nameCourt._id)" class="block">
+        <span class="block">
           {{nameCourt.name}}
         </span>
       </div>
@@ -35,8 +35,7 @@
   <section>
     <div class="text-lg text-[#307138]">
       <button (click)="prevWeek()" class="mr-3">Atrás</button>
-      <span class="font-bold">Semana</span>
-      <button (click)="nextWeek()" class="ml-3">Siguiente</button>
+      <span class="font-bold">Semana</span> <button (click)="nextWeek()" class="ml-3">Siguiente</button>
     </div>
   </section>
 

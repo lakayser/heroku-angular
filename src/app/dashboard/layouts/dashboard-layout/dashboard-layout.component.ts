@@ -25,11 +25,13 @@ export default class DashboardLayoutComponent {
   private authService: AuthService = inject(AuthService);
 
   public sidebarRoutes: SidebarRoutes[] = [
-    {label: 'Inicio', URL: '/dashboard/index'},
+    {label: 'Inicio', URL    : '/dashboard/index'},
+    {label: 'Calendario', URL: '/dashboard/calendar'},
   ];
 
   public toolbarRoutes: ToolbarRoutes[] = [
-    {label: 'Inicio', URL: '/dashboard/index'},
+    {label: 'Inicio', URL    : '/dashboard/index'},
+    {label: 'Calendario', URL: '/dashboard/calendar'},
   ];
 
 };

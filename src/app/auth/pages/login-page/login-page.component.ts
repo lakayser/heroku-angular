@@ -39,8 +39,6 @@ export default class LoginPageComponent implements OnInit {
   private validatorsService: ValidatorsService = inject(ValidatorsService);
   private authService      : AuthService = inject(AuthService);
 
-  public idOrg = computed(() => this.authService.currentUser()?.organization);
-
   public myForm: FormGroup = this.fb.group({
     email   : ['DDTINP1714arch@gmail.com', [Validators.required, Validators.pattern(this.validatorsService.emailPattern)]],
     password: ['', [Validators.required, Validators.minLength(6)]],
@@ -61,7 +59,7 @@ export default class LoginPageComponent implements OnInit {
     const {email, password} = this.myForm.value;
     this.authService.login(email, password)
       .subscribe({
-        next : () => this.router.navigateByUrl(`dashboard/index/${this.idOrg()}`),
+        next : () => this.router.navigateByUrl(`/dashboard/index`),
         error: (message) => {
           Swal.fire({
             title     : 'Error',
