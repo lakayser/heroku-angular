@@ -27,13 +27,15 @@ export default class DashboardLayoutComponent {
   public sidebarRoutes: SidebarRoutes[] = [
     {label: 'Inicio', URL: '/dashboard/index/:idOrg'},
     {label: 'Canchas', URL: '/dashboard/courts'},
-    {label: 'Horas', URL: '/dashboard/hours'}
+    {label: 'Horas', URL: '/dashboard/hours'},
+    {label: 'Calendario', URL: '/dashboard/calendar'},
   ];
 
   
 
   public toolbarRoutes: ToolbarRoutes[] = [
-    {label: 'Inicio', URL: '/dashboard/index'},
+    {label: 'Inicio', URL    : '/dashboard/index'},
+    {label: 'Calendario', URL: '/dashboard/calendar'},
   ];
 
 };

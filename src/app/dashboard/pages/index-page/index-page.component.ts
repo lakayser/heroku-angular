@@ -8,22 +8,17 @@ import { DaysCalendarComponent } from '../../../shared/components/days-calendar/
 @Component({
   selector   : 'dashboard-index-page',
   standalone : true,
-  imports    : [
-    CommonModule,
-    HeaderCalendarComponent,
-    DaysCalendarComponent],
+  imports    : [CommonModule],
   templateUrl: './index-page.component.html',
   styles     : [
   ],
 })
 export default class IndexPageComponent implements OnInit {
 
-  @Input() idOrg!: string;
-
   private authService: AuthService = inject(AuthService);
 
-  public org = computed(() => {
-    return this.authService.currentUser();
+  public idOrg = computed(() => {
+    return this.authService.currentUser()?.organization;
   });
   public user = computed(() => this.authService.currentUser());
 
@@ -32,7 +27,7 @@ export default class IndexPageComponent implements OnInit {
   };
 
   setIdOrgLocalStorage(): void {
-    localStorage.setItem('idOrg', this.idOrg);
+    localStorage.setItem('idOrg', this.idOrg()!);
   };
 
 };

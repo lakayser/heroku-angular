@@ -1,0 +1,20 @@
+<shared-header-calendar
+  (onEmitWeekNumberAdd)="getWeekNumber($event)"
+  (onEmitWeekNumberSubstract)="getWeekNumber($event)"
+  (onEmitYear)="getYear($event)"
+  (onEmitIdCourt)="getIdCourt($event)"
+  (onEmitIdFirstCourt)="getIdFirstCourt($event)"
+>
+</shared-header-calendar>
+
+<shared-days-calendar
+  [weekNumber]="weekNumber"
+  [year]="year"
+>
+</shared-days-calendar>
+
+<shared-hours-calendar
+  [courtId]="idCourt"
+  [idFirstCourt]="idFirtstCourt"
+>
+</shared-hours-calendar>
