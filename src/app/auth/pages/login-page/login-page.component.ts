@@ -40,7 +40,7 @@ export default class LoginPageComponent implements OnInit {
   private authService      : AuthService = inject(AuthService);
 
   public myForm: FormGroup = this.fb.group({
-    email   : ['DDTINP1714arch@gmail.com', [Validators.required, Validators.pattern(this.validatorsService.emailPattern)]],
+    email   : ['', [Validators.required, Validators.pattern(this.validatorsService.emailPattern)]],
     password: ['', [Validators.required, Validators.minLength(6)]],
   });
 
