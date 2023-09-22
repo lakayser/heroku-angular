@@ -3,6 +3,7 @@
   [idCourt]="idCourt"
   [weekNumber]="weekNumber"
   [year]="year"
+  [loading]="loading"
 >
 </shared-calendar-header>
 
@@ -12,7 +13,10 @@
 >
 </shared-calendar-days>
 
-<shared-calendar-hours
-  [hours]="hours"
->
-</shared-calendar-hours>
+<div *ngIf="loading()">
+  <shared-calendar-hours
+    [hours]="hours"
+    [weekNumber]="weekNumber"
+  >
+  </shared-calendar-hours>
+</div>

@@ -1,57 +1,17 @@
-<section class="grid grid-cols-7 mt-3 justify-center gap-[1rem]">
-  <div>
-    <div *ngFor="let hour of hours()">
-      <div *ngIf="hour.day === 1">
-        {{hour.hour}}
-      </div>
-    </div>
-  </div>
+<section
+  class="grid grid-cols-7 mt-3 justify-center gap-2"
+  >
 
-  <div>
-    <div *ngFor="let hour of hours()">
-      <div *ngIf="hour.day === 2">
+  <ng-container *ngFor="let dayHours of hoursComputed(); let i = index">
+    <div>
+      <div
+        class="bg-black my-1 text-white text-center py-2 cursor-pointer"
+        *ngFor="let hour of dayHours.hours; let i = index"
+        [style.background-color]="getHoursByColor(hour)"
+      >
         {{hour.hour}}
       </div>
     </div>
-  </div>
+  </ng-container>
 
-  <div>
-    <div *ngFor="let hour of hours()">
-      <div *ngIf="hour.day === 3">
-        {{hour.hour}}
-      </div>
-    </div>
-  </div>
-
-  <div>
-    <div *ngFor="let hour of hours()">
-      <div *ngIf="hour.day === 4">
-        {{hour.hour}}
-      </div>
-    </div>
-  </div>
-
-  <div>
-    <div *ngFor="let hour of hours()">
-      <div *ngIf="hour.day === 5">
-        {{hour.hour}}
-      </div>
-    </div>
-  </div>
-
-  <div>
-    <div *ngFor="let hour of hours()">
-      <div *ngIf="hour.day === 6">
-        {{hour.hour}}
-      </div>
-    </div>
-  </div>
-
-  <div>
-    <div *ngFor="let hour of hours()">
-      <div *ngIf="hour.day === 7">
-        {{hour.hour}}
-      </div>
-    </div>
-  </div>
 </section>

@@ -36,9 +36,15 @@ export default class CalendarDashboardComponent implements OnInit {
   public weekNumber         = signal<number | undefined>(undefined);
   public weekNumberComputed = computed(() => this.weekNumber());
   public hours              = signal<Hours[]>([]);
+
   public hoursEffect   = effect(() => {
     if(this.idCourtComputed())
       this.getHours(this.idCourtComputed(), this.weekNumberComputed()!);
+  });
+
+  public loading        = signal<boolean>(true);
+  public loadingComputed = computed(() => {
+    return this.loading();
   });
 
   ngOnInit(): void {

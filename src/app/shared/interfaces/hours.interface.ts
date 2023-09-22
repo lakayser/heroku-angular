@@ -30,3 +30,9 @@ export enum Hour {
 export enum Organization {
   The64Ef22C808F58D5A9C6F1Cb0 = "64ef22c808f58d5a9c6f1cb0",
 };
+
+export enum HoursColor {
+  red   = 'red',
+  green = 'green',
+  blue  = 'blue',
+};

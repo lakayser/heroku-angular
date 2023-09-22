@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges, computed, signal } from '@angular/core';
+import { Component, Input, OnInit, computed, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DateTime, Settings } from 'luxon';
 
@@ -33,6 +33,9 @@ export class CalendarHeaderComponent implements OnInit {
   public firstCourtName   = computed<string>(() => this.courts()[this.indexCourt()]?.name);
   public courtsName       = computed<Courts[]>(() => this.courts());
   public listCourts       = signal<boolean>(false);
+
+  @Input()
+  loading = signal<boolean>(false);
 
   constructor() {
     Settings.defaultZone   = 'America/Santiago';
@@ -75,20 +78,28 @@ export class CalendarHeaderComponent implements OnInit {
     this.listCourts.update(list => list = !list);
   };
   nextWeek(): void {
+    this.loading.update(load => load = false);
     if(this.weekNumber()! >= 52) {
       this.weekNumber.set(1);
       this.year.update(year => year! + 1);
     };
     this.weekNumber.update(number => number! + 1);
     this.getMonthName(this.weekNumber(), this.year());
+    setTimeout(() => {
+      this.loading.update(load => load = true);
+    }, 1000)
   };
   prevWeek(): void {
+    this.loading.update(load => load = false);
     if(this.weekNumber()! <= 1) {
       this.weekNumber.set(52);
       this.year.update(year => year! - 1);
     };
     this.weekNumber.update(number => number! - 1);
     this.getMonthName(this.weekNumber(), this.year());
+    setTimeout(() => {
+      this.loading.update(load => load = true);
+    }, 1000)
   };
 
 };
