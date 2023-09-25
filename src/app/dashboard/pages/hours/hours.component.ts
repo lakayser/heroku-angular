@@ -45,11 +45,11 @@ export default class HoursComponent implements OnInit {
   public options = signal<number[]>([1, 2, 3]);
 
   public formHours: FormGroup = this.fb.group({
-    idCourt: ['65008b7ad74bbeb519113f47', [Validators.required]],
-    startHour: ['10:00', [Validators.required]],
-    endHour: ['20:00', [Validators.required]],
-    price: [100, [Validators.required, Validators.minLength(1)]],
-    range: [1, [Validators.required]]
+    idCourt: ['', [Validators.required]],
+    startHour: ['', [Validators.required]],
+    endHour: ['', [Validators.required]],
+    price: [0, [Validators.required, Validators.minLength(1)]],
+    range: [0, [Validators.required]]
   })
 
   ngOnInit(): void {

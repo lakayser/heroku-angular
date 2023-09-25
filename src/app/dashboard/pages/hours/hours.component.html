@@ -81,7 +81,7 @@
                             formControlName="range" required>
                             
                             <option
-                                *ngFor="let val of options(); let i = index" value=val>{{i + 1}} Horas</option
+                                *ngFor="let val of options(); let i = index" [value]=val>{{i + 1}} Horas</option
                             >
                         </select>
                     </div>

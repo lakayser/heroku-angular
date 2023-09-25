@@ -41,7 +41,7 @@ export class HoursService {
     }
     return this.http.post<Hours>(URL, body, {headers})
       .pipe(
-        catchError(err=> throwError(()=> console.log(err)))
+        catchError(err=> throwError(()=> err.error.msg))
       )
   }
   
