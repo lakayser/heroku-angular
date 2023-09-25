@@ -1,12 +1,12 @@
-<header class="flex ga-4 justify-between">
+<header class="flex gap-4 justify-between">
 
-  <section>
+  <div>
     <span class="text-[#307138] text-xl">
       {{monthNameAndYear() | titlecase}}
     </span>
-  </section>
+  </div>
 
-  <section>
+  <div>
     <div
       class="text-lg text-center text-white bg-[#307138] cursor-pointer w-[14rem]"
       (click)="showListCourts()"
@@ -30,13 +30,13 @@
         </span>
       </div>
     </div>
-  </section>
+  </div>
 
-  <section>
+  <div>
     <div class="text-lg text-[#307138]">
       <button (click)="prevWeek()" class="mr-3">Atrás</button>
       <span class="font-bold">Semana</span> <button (click)="nextWeek()" class="ml-3">Siguiente</button>
     </div>
-  </section>
+  </div>
 
 </header>
