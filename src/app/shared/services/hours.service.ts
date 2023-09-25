@@ -27,13 +27,13 @@ export class HoursService {
   };
 
 
-  postHours(startHours:string, endHour: string, range: number, idCourt: string, price: number ):Observable<Hours>{
+  postHours(startHour:string, endHour: string, range: number, idCourt: string, price: number ):Observable<Hours>{
     const URL = `${this.baseURL}/api/hours/${this.idOrg}`
     const headers = new HttpHeaders({
       'x-token': `${this.token}`
     });
     const body = {
-      startHours,
+      startHour,
       endHour,
       range,
       idCourt,
@@ -41,7 +41,7 @@ export class HoursService {
     }
     return this.http.post<Hours>(URL, body, {headers})
       .pipe(
-        catchError(err=> throwError(()=>err.error.msg))
+        catchError(err=> throwError(()=> console.log(err)))
       )
   }
   

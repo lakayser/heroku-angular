@@ -42,17 +42,20 @@ export default class HoursComponent implements OnInit {
   public idCourt         = signal<string>('');
   public courtsName = computed<Courts[]>(()=> this.courts())
 
+  public options = signal<number[]>([1, 2, 3]);
+
   public formHours: FormGroup = this.fb.group({
-    idCourt: ['', [Validators.required]],
-    startHour: ['', [Validators.required]],
-    endHour: ['', [Validators.required]],
-    price: ['', [Validators.required, Validators.minLength(1)]],
-    range: ['', [Validators.required]]
+    idCourt: ['65008b7ad74bbeb519113f47', [Validators.required]],
+    startHour: ['10:00', [Validators.required]],
+    endHour: ['20:00', [Validators.required]],
+    price: [100, [Validators.required, Validators.minLength(1)]],
+    range: [1, [Validators.required]]
   })
 
   ngOnInit(): void {
+    console.log(this.formHours.value);
     this.getCourts();
-  }
+  };
 
   getCourts(): void {
     this.courtsService.getCourts(this.idOrg())
@@ -71,13 +74,9 @@ export default class HoursComponent implements OnInit {
       this.formHours.markAllAsTouched()
       return
     };
-    const {startHours} = this.formHours.value;
-    const {endHour} = this.formHours.value;
-    const {range} = this.formHours.value;
-    const {idCourt} = this.formHours.value;
-    const {price} = this.formHours.value;
     console.log(this.formHours.value)
-    this.hoursService.postHours(startHours, endHour, range, idCourt, price)
+    const {startHour, endHour, range, idCourt, price} = this.formHours.value;
+    this.hoursService.postHours(startHour, endHour, range, idCourt, price)
       .subscribe({
         next : () => {
           Swal.fire({

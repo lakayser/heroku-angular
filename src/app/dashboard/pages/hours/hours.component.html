@@ -79,11 +79,11 @@
                         dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500
                         dark:focus:border-blue-500" name="range" id="range" name="range"
                             formControlName="range" required>
-                            <option value="1">1 Hora</option>
-                            <option value="2">2 Horas</option>
-                            <option value="3">3 Horas</option>
+                            
+                            <option
+                                *ngFor="let val of options(); let i = index" value=val>{{i + 1}} Horas</option
+                            >
                         </select>
-
                     </div>
                     <span class="dark:text-red-500 text-red-800 text-sm block text-center" *ngIf="isValidField('range')"
                     customErrorsForm [errors]="formHours.get('range')?.errors">
