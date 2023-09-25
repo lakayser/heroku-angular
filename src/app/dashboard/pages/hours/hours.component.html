@@ -6,23 +6,26 @@
                 <div class="px-3 py-1 text-3xl text-blue-700 dark:text-white">Agregar Horas</div>
             </div>
             <div class="px-[5rem] space-y-4 md:space-y-6 sm:p-800 ">
-                <form class="">
+                <form [formGroup]="formHours" (ngSubmit)="submit()" >
                     <div class="col mt-4 form-group">
-                        <label for="input" class="form-label text-[#063c65] dark:text-white text-2xl mb-[5rem]">Seleccione la
+                        <label for="input" class="form-label text-[#063c65] dark:text-white text-2xl mb-5">Seleccione la
                             cancha para crear horas:</label>
 
-                        <select class="form-select  w-full bg-gray-50 border border-gray-300 text-gray-900
+                        <select class="form-select block w-full bg-gray-50 border border-gray-300 text-gray-900
                         sm:text-lg rounded-lg focus:ring-primary-600 focus:border-primary-600
                         p-2.5 dark:bg-gray-700 dark:border-gray-600
                         dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500
-                        dark:focus:border-blue-500" name="rangoHorario" id="rangoHorario" name="rangoHorario"
-                            formControlName="rangoHorario" required>
-                            <option>cancha 1</option>
-                            <option>cancha 2</option>
-                            <option>cancha 3</option>
+                        dark:focus:border-blue-500" name="idCourt" id="idCourt" name="idCourt"
+                            formControlName="idCourt" required>
+                            <option *ngFor="let court of courtsName()" [ngValue]="court._id">
+                                {{court.name}}
+                            </option>
                         </select>
 
                     </div>
+                    <span class="dark:text-red-500 text-red-800 text-sm block text-center" *ngIf="isValidField('idCourt')"
+                        customErrorsForm [errors]="formHours.get('idCourt')?.errors">
+                    </span>
                     <div class="col mt-4 form-group">
                         <label for="input" class="form-label text-[#063C65] dark:text-white text-2xl">Ingrese Horario de inicio:</label>
 
@@ -30,10 +33,13 @@
                         sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600
                         p-2.5 dark:bg-gray-700 dark:border-gray-600
                         dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500
-                        dark:focus:border-blue-500" name="name" required id="name"
-                            formControlName="name" />
+                        dark:focus:border-blue-500" name="startHour" required id="startHour"
+                            formControlName="startHour" />
 
                     </div>
+                    <span class="dark:text-red-500 text-red-800 text-sm block text-center" *ngIf="isValidField('startHour')"
+                    customErrorsForm [errors]="formHours.get('startHour')?.errors">
+                </span>
                     <div class="col mt-4 form-group">
                         <label for="input" class="form-label text-[#063C65] dark:text-white text-2xl">Ingrese Horario de fin:</label>
 
@@ -41,10 +47,13 @@
                         sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600
                         p-2.5 dark:bg-gray-700 dark:border-gray-600
                         dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500
-                        dark:focus:border-blue-500" name="name" required id="name"
-                            formControlName="name" />
+                        dark:focus:border-blue-500" name="endHour" required id="endHour"
+                            formControlName="endHour" />
 
                     </div>
+                    <span class="dark:text-red-500 text-red-800 text-sm block text-center" *ngIf="isValidField('endHour')"
+                    customErrorsForm [errors]="formHours.get('endHour')?.errors">
+                </span>
                     <div class="col mt-4 form-group">
                         <label for="input" class="form-label text-[#063C65] dark:text-white text-2xl">Ingrese precio de estas horas:</label>
 
@@ -52,10 +61,13 @@
                         sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600
                         p-2.5 dark:bg-gray-700 dark:border-gray-600
                         dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500
-                        dark:focus:border-blue-500" name="name" required id="name" minlength="4"
-                            formControlName="name" />
+                        dark:focus:border-blue-500" name="price" required id="price" minlength="1"
+                            formControlName="price" />
 
                     </div>
+                    <span class="dark:text-red-500 text-red-800 text-sm block text-center" *ngIf="isValidField('price')"
+                    customErrorsForm [errors]="formHours.get('price')?.errors">
+                </span>
 
                     <div class="col mt-4 form-group">
                         <label for="input" class="form-label text-[#063c65] dark:text-white text-2xl">Seleccione la
@@ -65,14 +77,17 @@
                         sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600
                         p-2.5 dark:bg-gray-700 dark:border-gray-600
                         dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500
-                        dark:focus:border-blue-500" name="rangoHorario" id="rangoHorario" name="rangoHorario"
-                            formControlName="rangoHorario" required>
-                            <option value="1">1 Hora</option>
-                            <option value="2">1:30 Horas</option>
-                            <option value="3">2 Horas</option>
+                        dark:focus:border-blue-500" name="range" id="range" name="range"
+                            formControlName="range" required>
+                            
+                            <option
+                                *ngFor="let val of options(); let i = index" value=val>{{i + 1}} Horas</option
+                            >
                         </select>
-
                     </div>
+                    <span class="dark:text-red-500 text-red-800 text-sm block text-center" *ngIf="isValidField('range')"
+                    customErrorsForm [errors]="formHours.get('range')?.errors">
+                </span>
 
                     <div class="text-center mt-4 text-black">
                         <button [width]="'px-[5rem]'" [widthResponsive]="'sm:px-[9rem]'" customButton>
