@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { DateTime, Settings } from 'luxon';
 
 import { Courts } from '../../interfaces/courts.interface';
+import { Hours } from '../../interfaces/hours.interface';
 
 @Component({
   selector: 'shared-calendar-header',
@@ -17,7 +18,11 @@ export class CalendarHeaderComponent implements OnInit {
   @Input()
   public weekNumber       = signal<number   | undefined>(undefined);
 
-  @Input() year           = signal<number   | undefined>(undefined);
+  @Input()
+  public year             = signal<number   | undefined>(undefined);
+
+  @Input()
+  public hours            = signal<Hours[]>([]);
 
   public currentDate      = signal<DateTime | undefined>(undefined);
   public monthName        = signal<string   | undefined>(undefined);
@@ -66,19 +71,21 @@ export class CalendarHeaderComponent implements OnInit {
     };
   };
   getIdCourt(id: string, index: number): void {
+    this.loading.update(load => load = true);
     this.idCourt.update(courtId => courtId = id );
     this.listCourts.update(list => list = !list);
     this.indexCourt.set(index);
+    setTimeout(() => {
+      if(this.hours().length > 0)
+        this.loading.update(load => load = false);
+    }, 1000)
   };
-  getIndexCourt(index: number): void {
-    this.indexCourt.set(index);
-  };
-
   showListCourts(): void {
     this.listCourts.update(list => list = !list);
   };
+
   nextWeek(): void {
-    this.loading.update(load => load = false);
+    this.loading.update(load => load = true);
     if(this.weekNumber()! >= 52) {
       this.weekNumber.set(1);
       this.year.update(year => year! + 1);
@@ -86,11 +93,12 @@ export class CalendarHeaderComponent implements OnInit {
     this.weekNumber.update(number => number! + 1);
     this.getMonthName(this.weekNumber(), this.year());
     setTimeout(() => {
-      this.loading.update(load => load = true);
+      if(this.hours().length > 0)
+        this.loading.update(load => load = false);
     }, 1000)
   };
   prevWeek(): void {
-    this.loading.update(load => load = false);
+    this.loading.update(load => load = true);
     if(this.weekNumber()! <= 1) {
       this.weekNumber.set(52);
       this.year.update(year => year! - 1);
@@ -98,7 +106,8 @@ export class CalendarHeaderComponent implements OnInit {
     this.weekNumber.update(number => number! - 1);
     this.getMonthName(this.weekNumber(), this.year());
     setTimeout(() => {
-      this.loading.update(load => load = true);
+      if(this.hours().length > 0)
+        this.loading.update(load => load = false);
     }, 1000)
   };
 

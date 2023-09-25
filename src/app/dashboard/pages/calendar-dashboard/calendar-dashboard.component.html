@@ -4,6 +4,7 @@
   [weekNumber]="weekNumber"
   [year]="year"
   [loading]="loading"
+  [hours]="hours"
 >
 </shared-calendar-header>
 
@@ -13,10 +14,17 @@
 >
 </shared-calendar-days>
 
-<div *ngIf="loading()">
+<div class="text-center">
+
   <shared-calendar-hours
+    *ngIf="!loading(); else loader"
     [hours]="hours"
     [weekNumber]="weekNumber"
   >
   </shared-calendar-hours>
+
+  <ng-template #loader>
+    <shared-loader></shared-loader>
+  </ng-template>
+
 </div>

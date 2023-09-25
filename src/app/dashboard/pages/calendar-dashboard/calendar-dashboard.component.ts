@@ -8,6 +8,7 @@ import { HoursService } from '../../../shared/services/hours.service';
 import { CalendarDaysComponent } from '../../../shared/components/calendar-days/calendar-days.component';
 import { CalendarHoursComponent } from '../../../shared/components/calendar-hours/calendar-hours.component';
 import { Hours } from '../../../shared/interfaces/hours.interface';
+import { LoaderComponent } from '../../../shared/components/loader/loader.component';
 
 @Component({
   selector: 'dashboard-calendar-dashboard',
@@ -16,7 +17,9 @@ import { Hours } from '../../../shared/interfaces/hours.interface';
     CommonModule,
     CalendarHeaderComponent,
     CalendarDaysComponent,
-    CalendarHoursComponent],
+    CalendarHoursComponent,
+    LoaderComponent,
+  ],
   templateUrl: './calendar-dashboard.component.html',
   styles     : [
   ],
@@ -41,14 +44,12 @@ export default class CalendarDashboardComponent implements OnInit {
     if(this.idCourtComputed())
       this.getHours(this.idCourtComputed(), this.weekNumberComputed()!);
   });
-
-  public loading        = signal<boolean>(true);
-  public loadingComputed = computed(() => {
-    return this.loading();
-  });
+  public loading        = signal<boolean>(false);
 
   ngOnInit(): void {
     this.getCourts();
+
+    this.loading.set(true);
   };
 
   getCourts(): void {
@@ -63,6 +64,8 @@ export default class CalendarDashboardComponent implements OnInit {
     this.hoursService.getHours(this.idOrg(), idCourt, weekNumber)
       .subscribe(hours => {
         this.hours.set(hours);
+        if(this.hours().length > 1)
+          this.loading.set(false);
       });
   };
 

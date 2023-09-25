@@ -2,8 +2,6 @@ import { Component, Input, OnInit, computed, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { AuthService } from '../../../auth/services/auth.service';
-import { HeaderCalendarComponent } from '../../../shared/components/header-calendar/header-calendar.component';
-import { DaysCalendarComponent } from '../../../shared/components/days-calendar/days-calendar.component';
 
 @Component({
   selector   : 'dashboard-index-page',
