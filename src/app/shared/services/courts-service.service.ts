@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
-import { environments } from '../../enviroments/environments';
+import { environments } from '../../../environments/environments';
 import { Courts } from '../interfaces/courts.interface';
 
 @Injectable({

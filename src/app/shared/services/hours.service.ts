@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-import { environments } from '../../enviroments/environments';
+import { environments } from '../../../environments/environments';
 import { Observable, catchError, throwError } from 'rxjs';
 import { Hours } from '../interfaces/hours.interface';
 
